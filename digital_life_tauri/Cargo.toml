@@ -1,0 +1,18 @@
+[package]
+name = "digital-life-tauri"
+version = "0.1.0"
+edition = "2021"
+description = "Digital Life Engine - Tauri Plugin for Claude Desktop"
+
+[lib]
+name = "digital_life_tauri"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+digital_life_core = { path = "../digital_life_core" }
+tokio = { version = "1", features = ["full"] }
+log = "0.4"
