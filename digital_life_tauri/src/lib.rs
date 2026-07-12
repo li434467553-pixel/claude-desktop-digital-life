@@ -1,5 +1,5 @@
-ï»¿//! Digital Life Tauri Plugin
-//! å°†æ•°å­—ç”Ÿå‘½å¼•æ“åµŒå…¥ Claude Desktop (Tauri) çš„æ’ä»¶
+//! Digital Life Tauri Plugin
+//! ½«Êı×ÖÉúÃüÒıÇæÇ¶Èë Claude Desktop (Tauri) µÄ²å¼ş
 
 use tauri::{
     plugin::{Builder, TauriPlugin},
@@ -11,7 +11,7 @@ use std::sync::Mutex;
 use digital_life_core::DigitalLifeSimulation;
 use digital_life_core::SimulationSnapshot;
 
-/// æ’ä»¶çŠ¶æ€
+/// ²å¼ş×´Ì¬
 pub struct DigitalLifeState(pub Mutex<Option<DigitalLifeSimulation>>);
 
 #[derive(Serialize, Deserialize)]
@@ -27,7 +27,7 @@ pub struct LifeInfo {
 
 #[tauri::command]
 fn create_simulation(state: State<DigitalLifeState>, world_name: String) -> Result<(), String> {
-    let mut sim = DigitalLifeSimulation::new(&world_name);
+    let sim = DigitalLifeSimulation::new(&world_name);
     *state.0.lock().map_err(|e| e.to_string())? = Some(sim);
     Ok(())
 }
@@ -74,7 +74,7 @@ fn get_life_states(state: State<DigitalLifeState>) -> Result<Vec<LifeInfo>, Stri
     Ok(info)
 }
 
-/// åˆå§‹åŒ–æ’ä»¶
+/// ³õÊ¼»¯²å¼ş
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
     Builder::new("digital-life")
         .invoke_handler(tauri::generate_handler![
@@ -83,7 +83,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             tick_simulation,
             get_life_states,
         ])
-        .setup(|app| {
+        .setup(|app, _handle| {
             app.manage(DigitalLifeState(Mutex::new(None)));
             Ok(())
         })
