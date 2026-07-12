@@ -4,9 +4,7 @@ version = "3.1.0"
 description = "Claude Desktop - AI assistant with native capabilities (Tauri Edition)"
 authors = ["you"]
 edition = "2021"
-
-[workspace]
-members = ["worker", "../digital_life_core", "../digital_life_tauri"]
+resolver = "2"
 
 [lib]
 name = "claude_desktop_tauri_lib"
